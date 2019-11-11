@@ -1,4 +1,4 @@
-package com.github.kurozeropb.api.entities
+package com.github.kurozeropb.internal.responses
 
 interface IBaseResponse {
     val statusCode: Int

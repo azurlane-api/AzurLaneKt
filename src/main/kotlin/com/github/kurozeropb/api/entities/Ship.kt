@@ -45,6 +45,11 @@ data class Miscellaneous(
     val voiceActress: MiscellaneousData? = null
 )
 
+data class SmallShip(
+    val id: String,
+    val name: String
+)
+
 data class Ship(
     val wikiUrl: String,
     val id: String? = null,
@@ -61,10 +66,3 @@ data class Ship(
     val stats: Stats,
     val miscellaneous: Miscellaneous
 )
-
-data class ShipResponse(
-    override val statusCode: Int,
-    override val statusMessage: String,
-    override val message: String,
-    val ship: Ship
-) : IBaseResponse

@@ -2,6 +2,8 @@ package com.github.kurozeropb
 
 import com.github.kurozeropb.api.ALInfo
 import com.github.kurozeropb.api.AzurLane
+import com.github.kurozeropb.api.Order
+import com.github.kurozeropb.api.entities.SmallShip
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -21,6 +23,32 @@ class AzurLaneTest {
         val id = "244"
         val ship = azurlane.getShipById(id)
         assertEquals(ship.id, id)
+    }
+
+    @Test
+    fun `list of ships ordered by rarity`() {
+        val ships = azurlane.getShips(Order.RARITY, "Super Rare")
+        assert(ships.contains(SmallShip("244", "Prinz Eugen")))
+    }
+
+    @Test
+    fun `list of ships ordered by type`() {
+        val ships = azurlane.getShips(Order.TYPE, "Destroyer")
+        assert(ships.contains(SmallShip("103", "Vampire")))
+    }
+
+    @Test
+    fun `list of ships ordered by affiliation`() {
+        val ships = azurlane.getShips(Order.AFFILIATION, "Sardegna Empire")
+        assert(ships.contains(SmallShip("413", "Zara")))
+    }
+
+    @Test
+    fun `list of ship names with construction time 00-12-00`() {
+        val time = "00:12:00"
+        val construction = azurlane.getBuildInfo(time)
+        assertEquals(construction.time, time)
+        assert(construction.ships.contains("U-101"))
     }
 
 }
