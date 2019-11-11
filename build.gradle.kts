@@ -15,6 +15,7 @@ java {
 }
 
 repositories {
+    mavenCentral()
     jcenter()
 }
 
@@ -22,6 +23,14 @@ dependencies {
     implementation(kotlin("stdlib"))
     implementation("com.github.kittinunf.fuel:fuel:2.2.1")
     implementation("com.google.code.gson:gson:2.8.5")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.5.2")
+}
+
+tasks.test {
+    useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
 }
 
 tasks.withType<KotlinCompile> {

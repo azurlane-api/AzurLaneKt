@@ -13,14 +13,14 @@ import java.io.ByteArrayInputStream
 import java.io.InputStreamReader
 import java.lang.Exception
 
-class AzurLane(val userAgent: String? = null) {
+class AzurLane(private val userAgent: String? = null) {
 
     init {
-        FuelManager.instance.basePath = Config.baseUrl
+        FuelManager.instance.basePath = ALInfo.baseUrl
         FuelManager.instance.baseHeaders = if (userAgent != null) {
             mapOf("User-Agent" to userAgent)
         } else {
-            mapOf("User-Agent" to Config.userAgent)
+            mapOf("User-Agent" to ALInfo.userAgent)
         }
     }
 
