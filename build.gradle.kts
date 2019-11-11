@@ -3,7 +3,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     java
     maven
-    `maven-publish`
     kotlin("jvm") version "1.3.50"
 }
 
@@ -28,17 +27,17 @@ dependencies {
 }
 
 tasks {
-    wrapper {
-        gradleVersion = "5.2.1"
-        distributionType = Wrapper.DistributionType.ALL
-    }
-
-    test {
-        useJUnitPlatform()
-        testLogging {
-            events("passed", "skipped", "failed")
-        }
-    }
+//    wrapper {
+//        gradleVersion = "5.2.1"
+//        distributionType = Wrapper.DistributionType.ALL
+//    }
+//
+//    test {
+//        useJUnitPlatform()
+//        testLogging {
+//            events("passed", "skipped", "failed")
+//        }
+//    }
 
     withType<KotlinCompile> {
         kotlinOptions.jvmTarget = "1.8"
