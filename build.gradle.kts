@@ -2,11 +2,12 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     java
+    maven
     kotlin("jvm") version "1.3.50"
 }
 
-group = "info.kurozeropb"
-version = "1.0.0"
+group = "com.github.kurozeropb"
+version = "1.0.1"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8

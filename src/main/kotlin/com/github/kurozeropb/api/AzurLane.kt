@@ -1,19 +1,19 @@
-package info.kurozeropb.api
+package com.github.kurozeropb.api
 
 import com.github.kittinunf.fuel.core.FuelError
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.result.Result
 import com.google.gson.Gson
-import info.kurozeropb.api.entities.ErrorResponse
-import info.kurozeropb.api.entities.Ship
-import info.kurozeropb.api.entities.ShipResponse
-import info.kurozeropb.api.exceptions.HttpException
+import com.github.kurozeropb.api.entities.ErrorResponse
+import com.github.kurozeropb.api.entities.Ship
+import com.github.kurozeropb.api.entities.ShipResponse
+import com.github.kurozeropb.api.exceptions.HttpException
 import java.io.ByteArrayInputStream
 import java.io.InputStreamReader
 import java.lang.Exception
 
-class AzurLane(private val userAgent: String?) {
+class AzurLane(val userAgent: String? = null) {
 
     init {
         FuelManager.instance.basePath = Config.baseUrl

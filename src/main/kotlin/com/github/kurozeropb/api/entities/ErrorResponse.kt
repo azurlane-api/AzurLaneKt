@@ -1,4 +1,4 @@
-package info.kurozeropb.api.entities
+package com.github.kurozeropb.api.entities
 
 data class ErrorResponse(
     override val statusCode: Int,
