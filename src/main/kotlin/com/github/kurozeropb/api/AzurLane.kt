@@ -5,17 +5,17 @@ import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.result.Result
 import com.github.kurozeropb.api.entities.Construction
-import com.google.gson.Gson
 import com.github.kurozeropb.internal.responses.ErrorResponse
 import com.github.kurozeropb.internal.responses.ShipResponse
 import com.github.kurozeropb.api.entities.Ship
 import com.github.kurozeropb.api.entities.SmallShip
+import com.github.kurozeropb.api.exceptions.ApiException
 import com.github.kurozeropb.internal.responses.ConstructionResponse
 import com.github.kurozeropb.internal.responses.ShipsResponse
 import com.github.kurozeropb.api.exceptions.HttpException
+import com.google.gson.Gson
 import java.io.ByteArrayInputStream
 import java.io.InputStreamReader
-import java.lang.Exception
 
 enum class Order(val string: String) {
     RARITY("rarity"),
@@ -23,6 +23,12 @@ enum class Order(val string: String) {
     AFFILIATION("affiliation")
 }
 
+/**
+ * Class with functions to make api requests
+ *
+ * @property userAgent the user-agent you want to set
+ * @constructor creates a new azurlane class and sets the user-agent
+ */
 class AzurLane(private val userAgent: String? = null) {
 
     init {
@@ -42,7 +48,7 @@ class AzurLane(private val userAgent: String? = null) {
                     val response = Gson().fromJson(data, ShipResponse::class.java)
                     return response.ship
                 }
-                throw Exception("No data returned")
+                throw ApiException("No data returned")
             }
             is Result.Failure -> {
                 if (exception != null) {
@@ -50,21 +56,52 @@ class AzurLane(private val userAgent: String? = null) {
                     val error = Gson().fromJson(input, ErrorResponse::class.java)
                     throw HttpException(error)
                 }
-                throw Exception("No data returned")
+                throw ApiException("No data returned")
             }
         }
     }
 
+    /**
+     * @since 1.0.0
+     *
+     * Get information about a ship by name
+     *
+     * @param name the name of the ship
+     * @return the ship data
+     * @throws HttpException
+     * @throws ApiException
+     */
     fun getShipByName(name: String): Ship {
         val (_, _, result) = "/ship".httpGet(parameters = listOf("name" to name)).responseString()
         return handleShipResult(result)
     }
 
+    /**
+     * @since 1.0.0
+     *
+     * Get information about a ship by id
+     *
+     * @param id the id of the ship
+     * @return the ship data
+     * @throws HttpException
+     * @throws ApiException
+     */
     fun getShipById(id: String): Ship {
         val (_, _, result) = "/ship".httpGet(parameters = listOf("id" to id)).responseString()
         return handleShipResult(result)
     }
 
+    /**
+     * @since 1.1.2
+     *
+     * Get a list of ships from rarity, type or affiliation
+     *
+     * @param order the order
+     * @param value value depends on what order is used, e.g. if `Order.RARITY` is used value can be `Super Rare`
+     * @return a list of ship objects containing name and id
+     * @throws HttpException
+     * @throws ApiException
+     */
     fun getShips(order: Order, value: String): List<SmallShip> {
         val (_, _, result) = "/ships".httpGet(parameters = listOf("orderBy" to order.string, order.string to value)).responseString()
         val (data, exception) = result
@@ -74,7 +111,7 @@ class AzurLane(private val userAgent: String? = null) {
                     val response = Gson().fromJson(data, ShipsResponse::class.java)
                     return response.ships
                 }
-                throw Exception("No data returned")
+                throw ApiException("No data returned")
             }
             is Result.Failure -> {
                 if (exception != null) {
@@ -82,11 +119,21 @@ class AzurLane(private val userAgent: String? = null) {
                     val error = Gson().fromJson(input, ErrorResponse::class.java)
                     throw HttpException(error)
                 }
-                throw Exception("No data returned")
+                throw ApiException("No data returned")
             }
         }
     }
 
+    /**
+     * @since 1.1.2
+     *
+     * Get ship names matching the given construction time
+     *
+     * @param time the construction time
+     * @return the construction data
+     * @throws HttpException
+     * @throws ApiException
+     */
     fun getBuildInfo(time: String): Construction {
         val (_, _, result) = "/build".httpGet(parameters = listOf("time" to time)).responseString()
         val (data, exception) = result
@@ -96,7 +143,7 @@ class AzurLane(private val userAgent: String? = null) {
                     val response = Gson().fromJson(data, ConstructionResponse::class.java)
                     return response.construction
                 }
-                throw Exception("No data returned")
+                throw ApiException("No data returned")
             }
             is Result.Failure -> {
                 if (exception != null) {
@@ -104,7 +151,7 @@ class AzurLane(private val userAgent: String? = null) {
                     val error = Gson().fromJson(input, ErrorResponse::class.java)
                     throw HttpException(error)
                 }
-                throw Exception("No data returned")
+                throw ApiException("No data returned")
             }
         }
     }
