@@ -27,13 +27,20 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.5.2")
 }
 
-tasks.test {
-    useJUnitPlatform()
-    testLogging {
-        events("passed", "skipped", "failed")
+tasks {
+    wrapper {
+        gradleVersion = "5.2.1"
+        distributionType = Wrapper.DistributionType.ALL
     }
-}
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events("passed", "skipped", "failed")
+        }
+    }
+
+    withType<KotlinCompile> {
+        kotlinOptions.jvmTarget = "1.8"
+    }
 }
