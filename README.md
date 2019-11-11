@@ -10,7 +10,7 @@ Wrapper for the unofficial azur lane json api in Kotlin
 
 ```kotlin
 repositories {
-    maven { url = "https://jitpack.io" }
+    maven(url = "https://jitpack.io")
 }
 ```
 
