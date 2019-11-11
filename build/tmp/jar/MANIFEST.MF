@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: info.kurozeropb
+Implementation-Version: 1.0.0
+Main-Class: info.kurozeropb.api.AzurLane
+
