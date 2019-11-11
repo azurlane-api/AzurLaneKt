@@ -1,3 +1,6 @@
+[![](https://jitpack.io/v/KurozeroPB/AzurLaneKt.svg)](https://jitpack.io/#KurozeroPB/AzurLaneKt)
+
+
 # AzurLaneKt
 Wrapper for the unofficial azur lane json api in Kotlin
 
