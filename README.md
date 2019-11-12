@@ -40,3 +40,26 @@ dependencies {
 </dependency>
 ```
 </details>
+
+## Example
+```kotlin
+package com.example
+
+import com.github.kurozeropb.api.AzurLane
+import com.github.kurozeropb.api.Order
+
+object Example {
+
+    @JvmStatic
+    fun main(args: Array<String>) {
+        val azurlane = AzurLane("custom_ua/v0.1.0")
+
+        val ships = azurlane.getShips(Order.RARITY, "Super Rare")
+        ships.forEach { ship -> println("[${ship.id}]: (${ship.name})") }
+    }
+
+}
+```
+
+## Support
+![discord](https://discordapp.com/api/v6/guilds/240059867744698368/widget.png?style=banner2)
