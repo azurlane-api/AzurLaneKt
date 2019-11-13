@@ -45,8 +45,8 @@ dependencies {
 ```kotlin
 package com.example
 
-import com.github.kurozeropb.api.AzurLane
-import com.github.kurozeropb.api.Order
+import com.github.azurlane_api.api.AzurLane
+import com.github.azurlane_api.api.Order
 
 object Example {
 

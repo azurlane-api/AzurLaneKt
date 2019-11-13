@@ -1,4 +1,4 @@
-package com.github.kurozeropb.api.entities
+package com.github.azurlane_api.api.entities
 
 data class Construction(
     val time: String,

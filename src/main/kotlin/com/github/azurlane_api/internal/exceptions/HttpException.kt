@@ -1,6 +1,6 @@
-package com.github.kurozeropb.api.exceptions
+package com.github.azurlane_api.internal.exceptions
 
-import com.github.kurozeropb.internal.responses.ErrorResponse
+import com.github.azurlane_api.internal.responses.ErrorResponse
 import java.lang.Exception
 
 class HttpException(private val response: ErrorResponse) : Exception("HTTP Exception ${response.statusCode} ${response.statusMessage}") {

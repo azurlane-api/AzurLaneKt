@@ -1,4 +1,4 @@
-package com.github.kurozeropb.api
+package com.github.azurlane_api.api
 
 object ALInfo {
     const val version = "1.1.2"

@@ -1,9 +1,9 @@
-package com.github.kurozeropb
+package com.github.azurlane_api
 
-import com.github.kurozeropb.api.ALInfo
-import com.github.kurozeropb.api.AzurLane
-import com.github.kurozeropb.api.Order
-import com.github.kurozeropb.api.entities.SmallShip
+import com.github.azurlane_api.api.ALInfo
+import com.github.azurlane_api.api.AzurLane
+import com.github.azurlane_api.api.Order
+import com.github.azurlane_api.api.entities.SmallShip
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

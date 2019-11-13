@@ -1,4 +1,4 @@
-package com.github.kurozeropb.api.exceptions
+package com.github.azurlane_api.internal.exceptions
 
 import java.lang.Exception
 

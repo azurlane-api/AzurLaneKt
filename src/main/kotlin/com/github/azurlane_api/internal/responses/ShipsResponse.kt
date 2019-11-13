@@ -1,6 +1,6 @@
-package com.github.kurozeropb.internal.responses
+package com.github.azurlane_api.internal.responses
 
-import com.github.kurozeropb.api.entities.SmallShip
+import com.github.azurlane_api.api.entities.SmallShip
 
 data class ShipsResponse(
     override val statusCode: Int,

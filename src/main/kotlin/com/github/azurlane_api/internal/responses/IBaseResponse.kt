@@ -1,4 +1,4 @@
-package com.github.kurozeropb.internal.responses
+package com.github.azurlane_api.internal.responses
 
 interface IBaseResponse {
     val statusCode: Int
