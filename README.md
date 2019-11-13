@@ -1,4 +1,4 @@
-[![](https://jitpack.io/v/KurozeroPB/AzurLaneKt.svg)](https://jitpack.io/#KurozeroPB/AzurLaneKt)
+[![](https://jitpack.io/v/azurlane-api/AzurLaneKt.svg)](https://jitpack.io/#azurlane-api/AzurLaneKt)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/cd784d3ff0e2472eb429bcad34fbdd66)](https://www.codacy.com/manual/KurozeroPB/AzurLaneKt?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=KurozeroPB/AzurLaneKt&amp;utm_campaign=Badge_Grade)
 
 # AzurLaneKt
@@ -16,7 +16,7 @@ repositories {
 
 ```kotlin
 dependencies {
-    implementation("com.github.KurozeroPB:AzurLaneKt:Tag")
+    implementation("com.github.azurlane-api:AzurLaneKt:Tag")
 }
 ```
 </details>
@@ -34,7 +34,7 @@ dependencies {
 
 ```xml
 <dependency>
-    <groupId>com.github.KurozeroPB</groupId>
+    <groupId>com.github.azurlane-api</groupId>
     <artifactId>AzurLaneKt</artifactId>
     <version>Tag</version>
 </dependency>
