@@ -58,7 +58,7 @@ data class Ship(
     val skins: List<Skin>,
     val buildTime: String? = null,
     val rarity: String? = null,
-    val starts: Stars,
+    val stars: Stars,
     val `class`: String? = null,
     val nationality: String? = null,
     val nationalityShort: String? = null,
