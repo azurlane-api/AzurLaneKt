@@ -2,7 +2,7 @@ package com.github.azurlane_api
 
 import com.github.azurlane_api.api.ALInfo
 import com.github.azurlane_api.api.AzurLane
-import com.github.azurlane_api.api.Order
+import com.github.azurlane_api.api.Category
 import com.github.azurlane_api.api.entities.SmallShip
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -27,19 +27,19 @@ class AzurLaneTest {
 
     @Test
     fun `list of ships ordered by rarity`() {
-        val ships = azurlane.getShips(Order.RARITY, "Super Rare")
+        val ships = azurlane.getShips(Category.RARITY, "Super Rare")
         assert(ships.contains(SmallShip("244", "Prinz Eugen")))
     }
 
     @Test
     fun `list of ships ordered by type`() {
-        val ships = azurlane.getShips(Order.TYPE, "Destroyer")
+        val ships = azurlane.getShips(Category.TYPE, "Destroyer")
         assert(ships.contains(SmallShip("103", "Vampire")))
     }
 
     @Test
     fun `list of ships ordered by affiliation`() {
-        val ships = azurlane.getShips(Order.AFFILIATION, "Sardegna Empire")
+        val ships = azurlane.getShips(Category.AFFILIATION, "Sardegna Empire")
         assert(ships.contains(SmallShip("413", "Zara")))
     }
 
