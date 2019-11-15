@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.github.azurlane-api"
-version = "1.2.2"
+version = "1.3.0"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -27,11 +27,6 @@ dependencies {
 }
 
 tasks {
-//    wrapper {
-//        gradleVersion = "6.0"
-//        distributionType = Wrapper.DistributionType.ALL
-//    }
-
     test {
         useJUnitPlatform()
         testLogging {

@@ -25,8 +25,8 @@ data class Stat(
 )
 
 data class Stats(
-    val `100`: List<Stat>? = null,
-    val `120`: List<Stat>? = null,
+    val level100: List<Stat>? = null,
+    val level120: List<Stat>? = null,
     val base: List<Stat>? = null,
     val retrofit100: List<Stat>? = null,
     val retrofit120: List<Stat>? = null

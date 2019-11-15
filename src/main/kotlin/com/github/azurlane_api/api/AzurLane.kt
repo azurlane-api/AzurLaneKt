@@ -17,7 +17,7 @@ import com.google.gson.Gson
 import java.io.ByteArrayInputStream
 import java.io.InputStreamReader
 
-enum class Order(val string: String) {
+enum class Category(val string: String) {
     RARITY("rarity"),
     TYPE("type"),
     AFFILIATION("affiliation")
@@ -96,14 +96,14 @@ class AzurLane(private val userAgent: String? = null) {
      *
      * Get a list of ships from rarity, type or affiliation
      *
-     * @param order the order
+     * @param category the category
      * @param value value depends on what order is used, e.g. if `Order.RARITY` is used value can be `Super Rare`
      * @return a list of ship objects containing name and id
      * @throws HttpException
      * @throws ApiException
      */
-    fun getShips(order: Order, value: String): List<SmallShip> {
-        val (_, _, result) = "/ships".httpGet(parameters = listOf("orderBy" to order.string, order.string to value)).responseString()
+    fun getShips(category: Category, value: String): List<SmallShip> {
+        val (_, _, result) = "/ships".httpGet(parameters = listOf("category" to category.string, category.string to value)).responseString()
         val (data, exception) = result
         when (result) {
             is Result.Success -> {
