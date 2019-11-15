@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.github.kurozeropb"
-version = "1.1.2"
+version = "1.2.2"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
