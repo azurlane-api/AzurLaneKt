@@ -6,7 +6,7 @@ plugins {
     kotlin("jvm") version "1.3.50"
 }
 
-group = "com.github.kurozeropb"
+group = "com.github.azurlane-api"
 version = "1.2.2"
 
 java {
@@ -28,16 +28,16 @@ dependencies {
 
 tasks {
 //    wrapper {
-//        gradleVersion = "5.2.1"
+//        gradleVersion = "6.0"
 //        distributionType = Wrapper.DistributionType.ALL
 //    }
-//
-//    test {
-//        useJUnitPlatform()
-//        testLogging {
-//            events("passed", "skipped", "failed")
-//        }
-//    }
+
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events("passed", "skipped", "failed")
+        }
+    }
 
     withType<KotlinCompile> {
         kotlinOptions.jvmTarget = "1.8"
