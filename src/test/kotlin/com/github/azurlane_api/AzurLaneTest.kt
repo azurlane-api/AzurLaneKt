@@ -4,6 +4,7 @@ import com.github.azurlane_api.api.ALInfo
 import com.github.azurlane_api.api.AzurLane
 import com.github.azurlane_api.api.Category
 import com.github.azurlane_api.api.entities.SmallShip
+import com.github.kittinunf.result.Result
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -14,41 +15,102 @@ class AzurLaneTest {
     @Test
     fun `request ship by name`() {
         val name = "Prinz Eugen"
-        val ship = azurlane.getShipByName(name)
-        assertEquals(ship.names.en, name)
+        val result = azurlane.getShipByName(name).complete()
+        val (ship, exception) = result
+        when (result) {
+            is Result.Success -> {
+                assertEquals(ship?.names?.en, name)
+            }
+            is Result.Failure -> {
+                assert(exception?.statusCode in 400..599)
+            }
+        }
     }
 
     @Test
     fun `request ship by id`() {
         val id = "244"
-        val ship = azurlane.getShipById(id)
-        assertEquals(ship.id, id)
+        val result = azurlane.getShipById(id).complete()
+        val (ship, exception) = result
+        when (result) {
+            is Result.Success -> {
+                assertEquals(ship?.id, id)
+            }
+            is Result.Failure -> {
+                assert(exception?.statusCode in 400..599)
+            }
+        }
     }
 
     @Test
     fun `list of ships ordered by rarity`() {
-        val ships = azurlane.getShips(Category.RARITY, "Super Rare")
-        assert(ships.contains(SmallShip("244", "Prinz Eugen")))
+        val result = azurlane.getShips(Category.RARITY, "Super Rare").complete()
+        val (ships, exception) = result
+        when (result) {
+            is Result.Success -> {
+                if (!ships.isNullOrEmpty())
+                    assert(ships.contains(SmallShip("244", "Prinz Eugen")))
+                else
+                    assert(false)
+            }
+            is Result.Failure -> {
+                assert(exception?.statusCode in 400..599)
+            }
+        }
     }
 
     @Test
     fun `list of ships ordered by type`() {
-        val ships = azurlane.getShips(Category.TYPE, "Destroyer")
-        assert(ships.contains(SmallShip("103", "Vampire")))
+        val result = azurlane.getShips(Category.TYPE, "Destroyer").complete()
+        val (ships, exception) = result
+        when (result) {
+            is Result.Success -> {
+                if (!ships.isNullOrEmpty())
+                    assert(ships.contains(SmallShip("103", "Vampire")))
+                else
+                    assert(false)
+            }
+            is Result.Failure -> {
+                assert(exception?.statusCode in 400..599)
+            }
+        }
     }
 
     @Test
     fun `list of ships ordered by affiliation`() {
-        val ships = azurlane.getShips(Category.AFFILIATION, "Sardegna Empire")
-        assert(ships.contains(SmallShip("413", "Zara")))
+        val result = azurlane.getShips(Category.AFFILIATION, "Sardegna Empire").complete()
+        val (ships, exception) = result
+        when (result) {
+            is Result.Success -> {
+                if (!ships.isNullOrEmpty())
+                    assert(ships.contains(SmallShip("413", "Zara")))
+                else
+                    assert(false)
+            }
+            is Result.Failure -> {
+                assert(exception?.statusCode in 400..599)
+            }
+        }
     }
 
     @Test
     fun `list of ship names with construction time 00-12-00`() {
         val time = "00:12:00"
-        val construction = azurlane.getBuildInfo(time)
-        assertEquals(construction.time, time)
-        assert(construction.ships.contains("U-101"))
+        val result = azurlane.getBuildInfo(time).complete()
+        val (construction, exception) = result
+        when (result) {
+            is Result.Success -> {
+                if (construction != null) {
+                    assertEquals(construction.time, time)
+                    assert(construction.ships.contains("U-101"))
+                } else {
+                    assert(false)
+                }
+            }
+            is Result.Failure -> {
+                assert(exception?.statusCode in 400..599)
+            }
+        }
     }
 
 }

@@ -1,5 +1,10 @@
 package com.github.azurlane_api.internal.exceptions
 
+import com.github.azurlane_api.internal.responses.ErrorResponse
 import java.lang.Exception
 
-class ApiException(override val message: String) : Exception(message)
+class ApiException(private val response: ErrorResponse) : Exception("HTTP Exception ${response.statusCode} ${response.statusMessage}") {
+    val statusCode = response.statusCode
+    val statusMessage = response.statusMessage
+    val error = response.error
+}

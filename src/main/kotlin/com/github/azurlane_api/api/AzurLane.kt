@@ -1,21 +1,9 @@
 package com.github.azurlane_api.api
 
-import com.github.kittinunf.fuel.core.FuelError
 import com.github.kittinunf.fuel.core.FuelManager
-import com.github.kittinunf.fuel.httpGet
-import com.github.kittinunf.result.Result
-import com.github.azurlane_api.api.entities.Construction
-import com.github.azurlane_api.api.entities.Ship
-import com.github.azurlane_api.api.entities.SmallShip
-import com.github.azurlane_api.internal.exceptions.ApiException
-import com.github.azurlane_api.internal.exceptions.HttpException
-import com.github.azurlane_api.internal.responses.ErrorResponse
-import com.github.azurlane_api.internal.responses.ShipResponse
-import com.github.azurlane_api.internal.responses.ConstructionResponse
-import com.github.azurlane_api.internal.responses.ShipsResponse
-import com.google.gson.Gson
-import java.io.ByteArrayInputStream
-import java.io.InputStreamReader
+import com.github.azurlane_api.api.handlers.ConstructionHandler
+import com.github.azurlane_api.api.handlers.ShipHandler
+import com.github.azurlane_api.api.handlers.ShipsHandler
 
 enum class Category(val string: String) {
     RARITY("rarity"),
@@ -40,27 +28,6 @@ class AzurLane(private val userAgent: String? = null) {
         }
     }
 
-    private fun handleShipResult(result: Result<String, FuelError>): Ship {
-        val (data, exception) = result
-        when (result) {
-            is Result.Success -> {
-                if (data != null) {
-                    val response = Gson().fromJson(data, ShipResponse::class.java)
-                    return response.ship
-                }
-                throw ApiException("No data returned")
-            }
-            is Result.Failure -> {
-                if (exception != null) {
-                    val input = InputStreamReader(ByteArrayInputStream(exception.response.data))
-                    val error = Gson().fromJson(input, ErrorResponse::class.java)
-                    throw HttpException(error)
-                }
-                throw ApiException("No data returned")
-            }
-        }
-    }
-
     /**
      * @since 1.0.0
      *
@@ -68,12 +35,9 @@ class AzurLane(private val userAgent: String? = null) {
      *
      * @param name the name of the ship
      * @return the ship data
-     * @throws HttpException
-     * @throws ApiException
      */
-    fun getShipByName(name: String): Ship {
-        val (_, _, result) = "/ship".httpGet(parameters = listOf("name" to name)).responseString()
-        return handleShipResult(result)
+    fun getShipByName(name: String): ShipHandler {
+        return ShipHandler("/ship", listOf("name" to name))
     }
 
     /**
@@ -83,12 +47,9 @@ class AzurLane(private val userAgent: String? = null) {
      *
      * @param id the id of the ship
      * @return the ship data
-     * @throws HttpException
-     * @throws ApiException
      */
-    fun getShipById(id: String): Ship {
-        val (_, _, result) = "/ship".httpGet(parameters = listOf("id" to id)).responseString()
-        return handleShipResult(result)
+    fun getShipById(id: String): ShipHandler {
+        return ShipHandler("/ship", listOf("id" to id))
     }
 
     /**
@@ -99,29 +60,9 @@ class AzurLane(private val userAgent: String? = null) {
      * @param category the category
      * @param value value depends on what order is used, e.g. if `Order.RARITY` is used value can be `Super Rare`
      * @return a list of ship objects containing name and id
-     * @throws HttpException
-     * @throws ApiException
      */
-    fun getShips(category: Category, value: String): List<SmallShip> {
-        val (_, _, result) = "/ships".httpGet(parameters = listOf("category" to category.string, category.string to value)).responseString()
-        val (data, exception) = result
-        when (result) {
-            is Result.Success -> {
-                if (data != null) {
-                    val response = Gson().fromJson(data, ShipsResponse::class.java)
-                    return response.ships
-                }
-                throw ApiException("No data returned")
-            }
-            is Result.Failure -> {
-                if (exception != null) {
-                    val input = InputStreamReader(ByteArrayInputStream(exception.response.data))
-                    val error = Gson().fromJson(input, ErrorResponse::class.java)
-                    throw HttpException(error)
-                }
-                throw ApiException("No data returned")
-            }
-        }
+    fun getShips(category: Category, value: String): ShipsHandler {
+        return ShipsHandler("/ships", listOf("category" to category.string, category.string to value))
     }
 
     /**
@@ -131,29 +72,9 @@ class AzurLane(private val userAgent: String? = null) {
      *
      * @param time the construction time
      * @return the construction data
-     * @throws HttpException
-     * @throws ApiException
      */
-    fun getBuildInfo(time: String): Construction {
-        val (_, _, result) = "/build".httpGet(parameters = listOf("time" to time)).responseString()
-        val (data, exception) = result
-        when (result) {
-            is Result.Success -> {
-                if (data != null) {
-                    val response = Gson().fromJson(data, ConstructionResponse::class.java)
-                    return response.construction
-                }
-                throw ApiException("No data returned")
-            }
-            is Result.Failure -> {
-                if (exception != null) {
-                    val input = InputStreamReader(ByteArrayInputStream(exception.response.data))
-                    val error = Gson().fromJson(input, ErrorResponse::class.java)
-                    throw HttpException(error)
-                }
-                throw ApiException("No data returned")
-            }
-        }
+    fun getBuildInfo(time: String): ConstructionHandler {
+        return ConstructionHandler("/build", listOf("time" to time))
     }
 
 }

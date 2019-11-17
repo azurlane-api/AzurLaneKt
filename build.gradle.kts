@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.github.azurlane-api"
-version = "1.3.1"
+version = "1.4.0"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8

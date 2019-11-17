@@ -43,11 +43,13 @@ dependencies {
 </details>
 
 ## Example
+<details><summary>Async request</summary>
+
 ```kotlin
 package com.example
 
 import com.github.azurlane_api.api.AzurLane
-import com.github.azurlane_api.api.Order
+import com.github.azurlane_api.api.Category
 
 object Example {
 
@@ -55,12 +57,54 @@ object Example {
     fun main(args: Array<String>) {
         val azurlane = AzurLane("custom_ua/v0.1.0")
 
-        val ships = azurlane.getShips(Order.RARITY, "Super Rare")
-        ships.forEach { ship -> println("[${ship.id}]: (${ship.name})") }
+        val result = azurlane.getShips(Category.TYPE, "Destroyer").complete { result ->
+        val (ships, exception) = result
+            when (result) {
+                is Result.Success -> {
+                    if (!ships.isNullOrEmpty())
+                        ships.forEach { ship -> println("[${ship.id}]: (${ship.name})") }
+                }
+                is Result.Failure -> {
+                    println(exception)
+                }
+            }
+        }
     }
 
 }
 ```
+</details>
+
+<details><summary>Blocking request</summary>
+
+```kotlin
+package com.example
+
+import com.github.azurlane_api.api.AzurLane
+import com.github.azurlane_api.api.Category
+
+object Example {
+
+    @JvmStatic
+    fun main(args: Array<String>) {
+        val azurlane = AzurLane("custom_ua/v0.1.0")
+
+        val result = azurlane.getShips(Category.RARITY, "Super Rare").complete()
+        val (ships, exception) = result
+        when (result) {
+            is Result.Success -> {
+                if (!ships.isNullOrEmpty())
+                    ships.forEach { ship -> println("[${ship.id}]: (${ship.name})") }
+            }
+            is Result.Failure -> {
+                println(exception)
+            }
+        }
+    }
+
+}
+```
+</details>
 
 ## Support
 ![discord](https://discordapp.com/api/v6/guilds/240059867744698368/widget.png?style=banner2)
