@@ -3,14 +3,24 @@ package com.github.azurlane_api
 import com.github.azurlane_api.api.ALInfo
 import com.github.azurlane_api.api.AzurLane
 import com.github.azurlane_api.api.Category
+import com.github.azurlane_api.api.entities.Options
 import com.github.azurlane_api.api.entities.SmallShip
 import com.github.kittinunf.result.Result
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import java.io.FileInputStream
+import java.util.*
 
 class AzurLaneTest {
+    private val properties = Properties()
+    private val inputStream = FileInputStream("./options.properties")
+
+    init {
+        properties.load(inputStream)
+    }
+
     private val testUserAgent = "AzurLaneKt_Test_Suite/v${ALInfo.version} (https://github.com/KurozeroPB/AzurLaneKt)"
-    private val azurlane = AzurLane(testUserAgent)
+    private val azurlane = AzurLane(Options(properties.getProperty("token", ""), testUserAgent))
 
     @Test
     fun `request ship by name`() {

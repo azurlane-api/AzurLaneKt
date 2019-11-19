@@ -1,5 +1,6 @@
 package com.github.azurlane_api.api
 
+import com.github.azurlane_api.api.entities.Options
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.azurlane_api.api.handlers.ConstructionHandler
 import com.github.azurlane_api.api.handlers.ShipHandler
@@ -14,18 +15,14 @@ enum class Category(val string: String) {
 /**
  * Class with functions to make api requests
  *
- * @property userAgent the user-agent you want to set
+ * @property options header options
  * @constructor creates a new azurlane class and sets the user-agent
  */
-class AzurLane(private val userAgent: String? = null) {
+class AzurLane(private val options: Options) {
 
     init {
         FuelManager.instance.basePath = ALInfo.baseUrl
-        FuelManager.instance.baseHeaders = if (userAgent != null) {
-            mapOf("User-Agent" to userAgent)
-        } else {
-            mapOf("User-Agent" to ALInfo.userAgent)
-        }
+        FuelManager.instance.baseHeaders = mapOf("Authorization" to options.token, "User-Agent" to options.userAgent)
     }
 
     /**
